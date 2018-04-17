@@ -4,6 +4,8 @@ var express = require('express');
 /* importar o módulo do consign */
 var consign = require('consign');
 
+
+
 /* importar o módulo do body-parser */
 var bodyParser = require('body-parser');
 
@@ -29,6 +31,7 @@ app.use(expressValidator());
 /* efetua o autoload das rotas, dos models e dos controllers para o objeto app */
 consign()
 	.include('app/routes')
+	.then("config/dbConnection.js")
 	.then('app/models')
 	.then('app/controllers')
 	.into(app);

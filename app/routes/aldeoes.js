@@ -1,5 +1,5 @@
 module.exports = function(application){
     application.get("/aldeoes", (req, res) => {
-        res.render("aldeoes");
+        application.app.controllers.aldeoes.aldeoes(application, req, res);
     })
 }
