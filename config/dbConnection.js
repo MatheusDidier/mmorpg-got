@@ -1,16 +1,38 @@
 /* importar o mongo db */
-var mongodb = require('mongodb');
+var mongo = require("mongodb").MongoClient;
+var assert = require("assert");
 
-module.exports = function () {
-    
-    return cnxComMongo;
+const url = 'mongodb://localhost:27017';
+const dbName = "got";
+
+
+function query(db, dados) {
+    console.log("ESSE É O DADO NA QUERY", dados);
+    const collection = db.collection(dados.collection);
+    switch (dados.operacao) {
+        case "inserir":
+            collection.insertOne(dados.usuario, dados.callback);
+            break;
+        default:
+            break;
+    }
 }
 
-function cnxComMongo(){
-    console.log("CONEXÃO COM BANCO CRIADA");
-    var db = new mongo.Db("got",
-        new mongo.Server("localhost", 27017, {}),
-        {}
-    );
-    return db;
+
+
+var cnxMongo = function (dados) {
+    
+    console.log(dados);
+    mongo.connect(url, function(err, client) {
+        assert.equal(null, err);
+        const db = client.db(dbName);
+        query(db, dados);
+        client.close();
+    });
+};
+
+
+module.exports = function () {
+
+    return cnxMongo;
 }

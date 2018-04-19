@@ -16,5 +16,13 @@ module.exports.cadastrar = function(application, req, res) {
         res.render("cadastro", {validacao: erros, dadosForm: dadosForm});
         return;
     }
-    res.send("PODEMOS CADASTRAR");
+
+    var cnx = application.config.dbConnection;
+    console.log("QUEM É VOCE MENININHO!", cnx);
+
+
+    var UsuariosDAO = new application.app.models.UsuariosDAO(cnx);
+
+    UsuariosDAO.inserirUsuario(dadosForm, res);
+    
 }
