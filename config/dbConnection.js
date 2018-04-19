@@ -13,6 +13,16 @@ function query(db, dados) {
         case "inserir":
             collection.insertOne(dados.usuario, dados.callback);
             break;
+        case "inserirJogo":
+            collection.insertOne(dados.atributo, dados.callback);
+            break;
+        case "findJogo":
+            collection.findOne({ usuario: dados.usuario }, dados.callback);
+            break;
+
+        case "find":
+            collection.findOne({ usuario: dados.usuario.usuario, senha: dados.usuario.senha }, dados.callback);
+            break;
         default:
             break;
     }
@@ -21,9 +31,9 @@ function query(db, dados) {
 
 
 var cnxMongo = function (dados) {
-    
+
     console.log(dados);
-    mongo.connect(url, function(err, client) {
+    mongo.connect(url, function (err, client) {
         assert.equal(null, err);
         const db = client.db(dbName);
         query(db, dados);

@@ -22,7 +22,9 @@ module.exports.cadastrar = function(application, req, res) {
 
 
     var UsuariosDAO = new application.app.models.UsuariosDAO(cnx);
+    var JogoDAO = new application.app.models.JogoDAO(cnx);
 
     UsuariosDAO.inserirUsuario(dadosForm, res);
+    JogoDAO.gerarParametros(dadosForm.usuario);
     
 }
