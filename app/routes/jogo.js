@@ -1,5 +1,5 @@
-module.exports = function(application){
-    
+module.exports = function (application) {
+
     application.get("/jogo", (req, res) => {
         application.app.controllers.jogo.jogo(application, req, res);
     })
@@ -7,4 +7,18 @@ module.exports = function(application){
     application.get("/sair", (req, res) => {
         application.app.controllers.jogo.sair(application, req, res);
     })
+
+
+    application.get("/pergaminhos", (req, res) => {
+        application.app.controllers.jogo.pergaminhos(application, req, res);
+    })
+
+    application.get("/aldeoes", (req, res) => {
+        application.app.controllers.jogo.aldeoes(application, req, res);
+    })
+
+    application.post("/ordenar_acao_sudito", (req, res) => {
+        application.app.controllers.jogo.ordenar_acao_sudito(application, req, res);
+    })
+
 }

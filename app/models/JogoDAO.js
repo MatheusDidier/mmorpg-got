@@ -25,7 +25,7 @@ JogoDAO.prototype.gerarParametros = function (usuario) {
 
 }
 
-JogoDAO.prototype.carregarJogo = function (usuario) {
+JogoDAO.prototype.carregarJogo = function (usuario, req, res, comando_invalido) {
 
     var dados = {
         operacao: "findJogo",
@@ -33,7 +33,7 @@ JogoDAO.prototype.carregarJogo = function (usuario) {
         collection: "jogo",
         callback: function (err, result) {
             console.log("ESSE É O RESULT DO CALLBACK", result);
-            res.render("jogo", { img_casa: req.session.casa, atributos: result }); 
+            res.render("jogo", { img_casa: req.session.casa, atributos: result, comando_invalido: comando_invalido }); 
         }
     }
 
