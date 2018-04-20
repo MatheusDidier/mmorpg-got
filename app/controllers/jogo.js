@@ -6,13 +6,17 @@ module.exports.jogo = function (application, req, res) {
         return;
     }
 
-    var comando_invalido = "N";
-    if (req.query.comando_invalido == "S") {
-        comando_invalido = "S";
+    var msg = "";
+    if (req.query.msg == "F") {
+        msg = "F";
+    }
+
+    if(req.query.msg == "S"){
+        msg = "S";
     }
     var cnx = application.config.dbConnection;
     var JogoDAO = new application.app.models.JogoDAO(cnx);
-    JogoDAO.carregarJogo(req.session.usuario, req, res, comando_invalido);
+    JogoDAO.carregarJogo(req.session.usuario, req, res, msg);
 
 
 
@@ -40,7 +44,13 @@ module.exports.pergaminhos = function (application, req, res) {
         res.render("index", { validacao: [] });
         return;
     }
-    res.render("pergaminhos");
+
+    var cnx = application.config.dbConnection;
+    var JogoDAO = new application.app.models.JogoDAO(cnx);
+    
+    JogoDAO.pergaminhos(req.session.usuario, res);
+
+    
 }
 
 module.exports.ordenar_acao_sudito = function (application, req, res) {
@@ -55,8 +65,16 @@ module.exports.ordenar_acao_sudito = function (application, req, res) {
     var erros = req.validationErrors();
 
     if (erros) {
-        res.redirect("jogo?comando_invalido=S");
+        res.redirect("jogo?msg=F");
         return;
     }
-    res.send("TUDO OK!");
+    
+    var cnx = application.config.dbConnection;
+    var JogoDAO = new application.app.models.JogoDAO(cnx);
+    dadosForm.usuario = req.session.usuario;
+    JogoDAO.acao(dadosForm, req);
+
+    res.redirect("jogo?msg=S")
+
+
 }

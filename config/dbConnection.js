@@ -7,7 +7,6 @@ const dbName = "got";
 
 
 function query(db, dados) {
-    console.log("ESSE É O DADO NA QUERY", dados);
     const collection = db.collection(dados.collection);
     switch (dados.operacao) {
         case "inserir":
@@ -16,10 +15,15 @@ function query(db, dados) {
         case "inserirJogo":
             collection.insertOne(dados.atributo, dados.callback);
             break;
+        case "inserirAcao":
+            collection.insertOne(dados.acao, dados.callback);
+            break;
         case "findJogo":
             collection.findOne({ usuario: dados.usuario }, dados.callback);
             break;
-
+        case "findAcao":
+            collection.find({ usuario: dados.usuario }).toArray(dados.callback);
+            break;
         case "find":
             collection.findOne({ usuario: dados.usuario.usuario, senha: dados.usuario.senha }, dados.callback);
             break;
