@@ -36,57 +36,57 @@
 			</div>
 
 			<% } %>
-			<% if(msg == 'S'){ %>
-				<div id="msg_sucesso" class="alert alert-success">
-					<strong>OPERAÇÃO EXECUTADA COM SUCESSO!</strong>
-				</div>
-				<% } %>
-					<div class="row">
-						<div class="col-sm-3 casa">
-							<img src="images/casa_<%= img_casa %>.jpg" />
-						</div>
+				<% if(msg == 'S'){ %>
+					<div id="msg_sucesso" class="alert alert-success">
+						<strong>OPERAÇÃO EXECUTADA COM SUCESSO!</strong>
+					</div>
+					<% } %>
+						<div class="row">
+							<div class="col-sm-3 casa">
+								<img src="images/casa_<%= img_casa %>.jpg" />
+							</div>
 
-						<div class="col-sm-9">
-							<div class="row barra-superior">
-								<div class="col-sm-2">
-									<img src="images/habilidades/temor.jpg" title="Temor" alt="Temor" />
-									<span>
-										<%= atributos.temor %>
-									</span>
-								</div>
+							<div class="col-sm-9">
+								<div class="row barra-superior">
+									<div class="col-sm-2">
+										<img src="images/habilidades/temor.jpg" title="Temor" alt="Temor" />
+										<span>
+											<%= atributos.temor %>
+										</span>
+									</div>
 
-								<div class="col-sm-2">
-									<img src="images/habilidades/sabedoria.jpg" title="Sabedoria" alt="Sabedoria" />
-									<span>
-										<%= atributos.sabedoria %>
-									</span>
-								</div>
+									<div class="col-sm-2">
+										<img src="images/habilidades/sabedoria.jpg" title="Sabedoria" alt="Sabedoria" />
+										<span>
+											<%= atributos.sabedoria %>
+										</span>
+									</div>
 
-								<div class="col-sm-2">
-									<img src="images/habilidades/comercio.jpg" title="Comércio" alt="Comércio" />
-									<span>
-										<%= atributos.comercio %>
-									</span>
-								</div>
+									<div class="col-sm-2">
+										<img src="images/habilidades/comercio.jpg" title="Comércio" alt="Comércio" />
+										<span>
+											<%= atributos.comercio %>
+										</span>
+									</div>
 
-								<div class="col-sm-2">
-									<img src="images/habilidades/magia.jpg" title="Magia" alt="Magia" />
-									<span>
-										<%= atributos.magia %>
-									</span>
+									<div class="col-sm-2">
+										<img src="images/habilidades/magia.jpg" title="Magia" alt="Magia" />
+										<span>
+											<%= atributos.magia %>
+										</span>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="row">
-						<div class="col-sm-3"></div>
-						<div class="col-sm-9">
-							<div class="acoes" id="acoes">Senhor, o que deseja fazer hoje ?
+						<div class="row">
+							<div class="col-sm-3"></div>
+							<div class="col-sm-9">
+								<div class="acoes" id="acoes">Senhor, o que deseja fazer hoje ?
 
+								</div>
 							</div>
 						</div>
-					</div>
 
 	</div>
 
@@ -124,6 +124,23 @@
 			window.location.href = "sair";
 		})
 
+		var timeId = null;
+		function funcaoContadora() {
+
+			$(".segundos").each(function () {
+
+				var segundos = $(this).html();
+				if (segundos == 0) {
+					return;
+				}
+
+				valor = parseInt(segundos) - 1;
+				$(this).html(valor);
+			})
+
+			timeId = setTimeout("funcaoContadora()", 1000);
+		}
+
 		$("#btn_aldeoes").click(() => {
 			$("#msg_erros").hide();
 			$("#msg_sucesso").hide();
@@ -135,6 +152,7 @@
 				}
 
 			})
+
 		})
 
 		$("#btn_pergaminho").click(() => {
@@ -142,9 +160,15 @@
 				url: "/pergaminhos",
 				method: "get",
 				success: function (result) {
-					$("#acoes").html(result);
+					new Promise((resolve) => {
+						resolve($("#acoes").html(result));
+					}).then(() => {
+						clearTimeout(timeId);
+						funcaoContadora();
+					})
 				}
 			})
+
 		})
 	</script>
 </body>

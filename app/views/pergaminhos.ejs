@@ -1,9 +1,18 @@
-<div id="pergaminhos">					
+<div id="pergaminhos">
 	<h3>Pergaminhos</h3>
-	
+
 	<ul>
 		<% pergaminhos.forEach((item) => { %>
-		<li><%= item.quantidade %> aldeão(ões) <%= item.acao %> - <small>restam <%= item.acao_termina_em %> segundos - <a href="#">revogar ordem</a></small></li>
-		<% }) %>
+			<li>
+				<%= item.quantidade %> aldeão(ões)
+					<%= item.acao %> -
+						<small>restam
+							<span class="segundos">
+								<%= item.acao_termina_em %>
+							</span> segundos - %>
+							<a href="#">revogar ordem</a>
+						</small>
+			</li>
+			<% }) %>
 	</ul>
 </div>

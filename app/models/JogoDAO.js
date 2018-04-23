@@ -110,11 +110,10 @@ JogoDAO.prototype.pergaminhos = function (usuario, res) {
                 result[i].acao_termina_em -= agora;
                 result[i].acao_termina_em = result[i].acao_termina_em < 0 ? "00000" : (Math.round(result[i].acao_termina_em / 1000));
             }
+            
 
 
-         
-
-            res.render("pergaminhos", { pergaminhos: result });
+            res.render("pergaminhos", { pergaminhos: result});
         }
     }
 

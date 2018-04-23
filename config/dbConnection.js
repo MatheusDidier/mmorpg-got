@@ -22,7 +22,9 @@ function query(db, dados) {
             collection.findOne({ usuario: dados.usuario }, dados.callback);
             break;
         case "findAcao":
-            collection.find({ usuario: dados.usuario }).toArray(dados.callback);
+            var data = new Date();
+            var momentoAtual = data.getTime();
+            collection.find({ usuario: dados.usuario, acao_termina_em: {$gt:momentoAtual} }).toArray(dados.callback);
             break;
         case "find":
             collection.findOne({ usuario: dados.usuario.usuario, senha: dados.usuario.senha }, dados.callback);
