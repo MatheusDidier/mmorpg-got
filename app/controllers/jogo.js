@@ -14,6 +14,10 @@ module.exports.jogo = function (application, req, res) {
     if(req.query.msg == "S"){
         msg = "S";
     }
+
+    if(req.query.msg == "FINALIZOU"){
+        msg = "FINALIZOU";
+    }
     var cnx = application.config.dbConnection;
     var JogoDAO = new application.app.models.JogoDAO(cnx);
     JogoDAO.carregarJogo(req.session.usuario, req, res, msg);
