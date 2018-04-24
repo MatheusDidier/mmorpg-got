@@ -54,17 +54,23 @@ JogoDAO.prototype.acao = function (acao, req) {
     switch (acao.acao) {
         case "1":
             somaMili = getMiliSegundos(1);
+            acao.moeda = -2 * acao.quantidade;
             break;
         case "2":
             somaMili = getMiliSegundos(2);
+            acao.moeda = -3 * acao.quantidade;
             break;
         case "3":
             somaMili = getMiliSegundos(5);
+            acao.moeda = -1 * acao.quantidade ;
             break;
         case "4":
             somaMili = getMiliSegundos(5);
+            acao.moeda = -1 * acao.quantidade;
             break;
     }
+
+    
 
     acao.acao_termina_em = date.getTime() + somaMili;
 
@@ -123,4 +129,17 @@ JogoDAO.prototype.pergaminhos = function (usuario, res) {
 
 module.exports = function () {
     return JogoDAO;
+}
+
+JogoDAO.prototype.revogarAcao = function(id, res){
+    var dados = {
+        operacao: "revogarAcao",
+        id: id,
+        collection: "acao",
+        callback: function(err, result){
+            res.redirect("jogo?msg=REMOVIDO")
+        }
+    }
+
+    this._connection(dados);
 }

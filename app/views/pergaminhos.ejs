@@ -8,9 +8,9 @@
 					<%= item.acao %> -
 						<small>restam
 							<span class="segundos">
-								5
+								<%= item.acao_termina_em %>
 							</span> segundos - %>
-							<a href="#">revogar ordem</a>
+							<a href="/revogar_acao?id_acao=<%= item._id %>">revogar ordem</a>
 						</small>
 			</li>
 			<% }) %>
