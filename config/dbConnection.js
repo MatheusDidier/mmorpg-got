@@ -45,7 +45,6 @@ function query(db, dados) {
 
 var cnxMongo = function (dados) {
 
-    console.log(dados);
     mongo.connect(url, function (err, client) {
         assert.equal(null, err);
         const db = client.db(dbName);

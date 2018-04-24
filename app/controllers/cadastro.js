@@ -28,3 +28,7 @@ module.exports.cadastrar = function(application, req, res) {
     JogoDAO.gerarParametros(dadosForm.usuario);
     
 }
+
+module.exports.sucesso = function(application, req, res){
+    res.render("paginaSucesso");
+}
